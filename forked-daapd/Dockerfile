@@ -2,6 +2,8 @@ ARG BUILD_FROM=hassioaddons/debian-base:3.0.0
 # hadolint ignore=DL3006
 FROM ${BUILD_FROM} as base
 ARG BUILD_ARCH
+ARG FORKEDDAAPD_VERSION=27.1
+ENV FORKEDDAAPD_VERSION=${FORKEDDAAPD_VERSION}
 
 ENV BUILD_DEPS \
     autoconf \
@@ -96,7 +98,7 @@ RUN curl -L -o /tmp/antlr-3.4-complete.jar http://www.antlr3.org/download/antlr-
     && chmod 775 /usr/local/bin/antlr3
 
 WORKDIR /tmp/forked-daapd
-RUN git clone --depth 1 https://github.com/ejurgensen/forked-daapd.git . \
+RUN git clone --branch ${FORKEDDAAPD_VERSION} --depth 1 https://github.com/ejurgensen/forked-daapd.git . \
     && autoreconf -fi \
     && if [ ! "$BUILD_ARCH" = "aarch64" ] ; then \
         ./configure \
@@ -146,6 +148,10 @@ COPY rootfs /
 ARG BUILD_DATE
 ARG BUILD_REF
 ARG BUILD_VERSION
+
+EXPOSE 3688
+EXPOSE 3689
+EXPOSE 6600
 
 # Labels
 LABEL \

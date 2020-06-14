@@ -1,6 +1,6 @@
 {
   "name": "Forked DAAPD",
-  "version": "dev",
+  "version": "27.1-dev",
   "slug": "forked-daapd",
   "panel_icon": "mdi:music-circle",
   "description": "Linux/FreeBSD DAAP (iTunes) and MPD media server with support for AirPlay devices (multiroom), Apple Remote (and compatibles), Chromecast, Spotify and internet radio.",
